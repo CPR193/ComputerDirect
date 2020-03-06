@@ -50,5 +50,75 @@ namespace ComputerDirect_TestCases
             Assert.AreEqual(AnOrderLine.Quantity, TestData);
         }
 
+        [TestMethod]
+        public void FindMethodOK()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = false;
+            Int32 OrderLineId = 1;
+            Found = AnOrderLine.Find(OrderLineId);
+            Assert.IsTrue(Found);
+        }
+
+        [TestMethod]
+        public void TestItemNoFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 OrderLineId = 1;
+            Found = AnOrderLine.Find(OrderLineId);
+            if (AnOrderLine.ItemNo != 1)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestOrderIdFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 OrderLineId = 1;
+            Found = AnOrderLine.Find(OrderLineId);
+            if (AnOrderLine.OrderId != 1)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestOrderLineIdFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 OrderLineId = 1;
+            Found = AnOrderLine.Find(OrderLineId);
+            if (AnOrderLine.OrderLineId != 1)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestQuantityFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 OrderLineId = 1;
+            Found = AnOrderLine.Find(OrderLineId);
+            if (AnOrderLine.Quantity != 1)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+
     }
 }
