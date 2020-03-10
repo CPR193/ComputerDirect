@@ -49,14 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tstOrder.cs" />
-    <Compile Include="tstOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tstStaff.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Compile Include="tst.customer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ComputerDirect-Classes\ComputerDirect-Classes.csproj">
