@@ -6,11 +6,15 @@ namespace ComputerDirect_TestCases
     [TestClass]
     public class tstStaff
     {
+
         [TestMethod]
         public void InstanceOK()
         {
-            clsStaff staff = new clsStaff();
-            Assert.IsNotNull(staff);
+            //create an instance of the class we want to create
+            clsAddress AnAddress = new clsAddress();
+            //test to see that it exists
+            Assert.IsNotNull(AnAddress);
         }
+
     }
 }
