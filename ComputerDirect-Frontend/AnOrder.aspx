@@ -20,7 +20,7 @@
         <asp:TextBox ID="TextBox4" runat="server" style="margin-left: 25px"></asp:TextBox>
         <p>
             <asp:Label ID="Label4" runat="server" Text="Order Status"></asp:Label>
-            <asp:CheckBox ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Active" style="margin-left: 35px"/>
+            <asp:CheckBox ID="CheckBox1" runat="server" Text="Active" style="margin-left: 35px" OnCheckedChanged="CheckBox1_CheckedChanged"/>
         </p>
         <asp:Button ID="Button1" runat="server" Text="OK" OnClick="Button1_Click"/>
         <asp:Button ID="Button2" runat="server" Text="Cancel" style="margin-left: 10px"/>
