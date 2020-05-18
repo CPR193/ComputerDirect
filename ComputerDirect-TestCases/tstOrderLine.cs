@@ -7,6 +7,13 @@ namespace ComputerDirect_TestCases
     [TestClass]
     public class tstOrderLine
     {
+        string OrderLineId = "1";
+        string OrderId = "1";
+        string ItemNo = "1";
+        string ItemDescription = "Test Item";
+        string Quantity = "1";
+        string UnitCost = "15";
+
         [TestMethod]
         public void InstanceOK()
         {
@@ -15,60 +22,79 @@ namespace ComputerDirect_TestCases
         }
 
         [TestMethod]
-        public void ItemNoPropertyOK()
+        public void OrderLineIdPropertyOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
+            clsOrderLine AnItem = new clsOrderLine();
             Int32 TestData = 1;
-            AnOrderLine.ItemNo = TestData;
-            Assert.AreEqual(AnOrderLine.ItemNo, TestData);
+            AnItem.OrderLineId = TestData;
+            Assert.AreEqual(AnItem.OrderLineId, TestData);
         }
 
         [TestMethod]
-        public void OrderIdPropertyOK()
+        public void OrderIdPropertyOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
+            clsOrderLine AnItem = new clsOrderLine();
             Int32 TestData = 1;
-            AnOrderLine.OrderId = TestData;
-            Assert.AreEqual(AnOrderLine.OrderId, TestData);
+            AnItem.OrderId = TestData;
+            Assert.AreEqual(AnItem.OrderId, TestData);
         }
 
         [TestMethod]
-        public void OrderLineIdPropertyOK()
+        public void ItemNoPropertyOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
+            clsOrderLine AnItem = new clsOrderLine();
             Int32 TestData = 1;
-            AnOrderLine.OrderLineId = TestData;
-            Assert.AreEqual(AnOrderLine.OrderLineId, TestData);
+            AnItem.ItemNo = TestData;
+            Assert.AreEqual(AnItem.ItemNo, TestData);
         }
 
         [TestMethod]
-        public void QuantityPropertyOK()
+        public void ItemDescriprionPropertyOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
-            Int32 TestData = 1;
-            AnOrderLine.Quantity = TestData;
-            Assert.AreEqual(AnOrderLine.Quantity, TestData);
+            clsOrderLine AnItem = new clsOrderLine();
+            String TestData = "Test Item";
+            AnItem.ItemDescription = TestData;
+            Assert.AreEqual(AnItem.ItemDescription, TestData);
         }
 
         [TestMethod]
-        public void FindMethodOK()
+        public void QuantityPropertyOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
-            Boolean Found = false;
+            clsOrderLine AnItem = new clsOrderLine();
+            Int32 TestData = 1;
+            AnItem.Quantity = TestData;
+            Assert.AreEqual(AnItem.Quantity, TestData);
+        }
+
+        [TestMethod]
+        public void UnitCostPropertyOk()
+        {
+            clsOrderLine AnItem = new clsOrderLine();
+            Decimal TestData = 1;
+            AnItem.UnitCost = TestData;
+            Assert.AreEqual(AnItem.UnitCost, TestData);
+        }
+
+        [TestMethod]
+        public void FindMethodOk()
+        {
+            clsOrderLine AnItem = new clsOrderLine();
+            bool Found = false;
             Int32 OrderLineId = 1;
-            Found = AnOrderLine.Find(OrderLineId);
+            Found = AnItem.Find(OrderLineId);
             Assert.IsTrue(Found);
         }
 
         [TestMethod]
-        public void TestItemNoFound()
+        public void FindAnyPropertyOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
-            Boolean Found = false;
-            Boolean OK = true;
+            clsOrderLine AnItem = new clsOrderLine();
+            bool Found = false;
+            bool OK = true;
             Int32 OrderLineId = 1;
-            Found = AnOrderLine.Find(OrderLineId);
-            if (AnOrderLine.ItemNo != 1)
+            string testData = "Asus G1241 Monitor";
+            Found = AnItem.Find(OrderLineId);
+            if (AnItem.ItemDescription != testData)
             {
                 OK = false;
             }
@@ -76,48 +102,12 @@ namespace ComputerDirect_TestCases
         }
 
         [TestMethod]
-        public void TestOrderIdFound()
+        public void ValidMethodOk()
         {
-            clsOrderLine AnOrderLine = new clsOrderLine();
-            Boolean Found = false;
-            Boolean OK = true;
-            Int32 OrderLineId = 1;
-            Found = AnOrderLine.Find(OrderLineId);
-            if (AnOrderLine.OrderId != 1)
-            {
-                OK = false;
-            }
-            Assert.IsTrue(OK);
-        }
-
-        [TestMethod]
-        public void TestOrderLineIdFound()
-        {
-            clsOrderLine AnOrderLine = new clsOrderLine();
-            Boolean Found = false;
-            Boolean OK = true;
-            Int32 OrderLineId = 1;
-            Found = AnOrderLine.Find(OrderLineId);
-            if (AnOrderLine.OrderLineId != 1)
-            {
-                OK = false;
-            }
-            Assert.IsTrue(OK);
-        }
-
-        [TestMethod]
-        public void TestQuantityFound()
-        {
-            clsOrderLine AnOrderLine = new clsOrderLine();
-            Boolean Found = false;
-            Boolean OK = true;
-            Int32 OrderLineId = 1;
-            Found = AnOrderLine.Find(OrderLineId);
-            if (AnOrderLine.Quantity != 1)
-            {
-                OK = false;
-            }
-            Assert.IsTrue(OK);
+            clsOrderLine AnItem = new clsOrderLine();
+            string Error = "";
+            Error = AnItem.Valid(OrderId, ItemNo, ItemDescription, Quantity, UnitCost);
+            Assert.AreEqual(Error, "");
         }
 
     }

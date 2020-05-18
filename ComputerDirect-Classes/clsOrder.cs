@@ -14,6 +14,8 @@ namespace ComputerDirect_Classes
         private Boolean xOrderStatus;
         private Decimal xOrderTotal;
         private Int32 xStaffId;
+        private string xOrderProgress;
+
         public Int32 CustomerId
         {
             get
@@ -47,11 +49,7 @@ namespace ComputerDirect_Classes
                 xOrderId = value;
             }
         }
-        public Int32 OrderLines
-        {
-            get;
-            set;
-        }
+
         public Boolean OrderStatus
         {
             get
@@ -86,6 +84,18 @@ namespace ComputerDirect_Classes
             }
         }
 
+        public string OrderProgress
+        {
+            get
+            {
+                return xOrderProgress;
+            }
+            set
+            {
+                xOrderProgress = value;
+            }
+        }
+
         public bool Find(Int32 OrderId)
         {
             clsDataConnection DB = new clsDataConnection();
@@ -99,6 +109,7 @@ namespace ComputerDirect_Classes
                 xOrderStatus = Convert.ToBoolean(DB.DataTable.Rows[0]["OrderStatus"]);
                 xOrderTotal = Convert.ToDecimal(DB.DataTable.Rows[0]["OrderTotal"]);
                 xStaffId = Convert.ToInt32(DB.DataTable.Rows[0]["StaffId"]);
+                xOrderProgress = Convert.ToString(DB.DataTable.Rows[0]["OrderProgress"]);
                 return true;
             }
             else
@@ -107,9 +118,92 @@ namespace ComputerDirect_Classes
             }
         }
 
-        public string Valid(string OrderDate, string OrderTotal)
+        public string Valid(string CustomerId, string StaffId, string OrderDate, string OrderTotal, string OrderProgress)
         {
-            return "";
+            String Error = "";
+            DateTime DateTemp;
+            Int32 IdTemp;
+            Decimal TotalTemp;
+
+            try
+            {
+                IdTemp = Convert.ToInt32(CustomerId);
+                if (IdTemp < 1)
+                {
+                    Error = Error + "Customer ID can not be less than 1; ";
+                }
+                if (IdTemp == int.MaxValue)
+                {
+                    Error = Error + "Customer ID can not be max int; ";
+                }
+            }
+            catch
+            {
+                Error = Error + "Customer Id Cannot be empty; ";
+            }
+
+            try
+            {
+                IdTemp = Convert.ToInt32(StaffId);
+                if (IdTemp < 1)
+                {
+                    Error = Error + "Staff ID can not be less than 1; ";
+                }
+                if (IdTemp == int.MaxValue)
+                {
+                    Error = Error + "Staff ID can not be max int; ";
+                }
+            }
+            catch
+            {
+                Error = Error + "Staff Id Cannot be empty; ";
+            }
+
+            try
+            {
+                DateTemp = Convert.ToDateTime(OrderDate);
+                if (DateTemp < DateTime.Now.Date)
+                {
+                    Error = Error + "The date of the order can not be set from the past; ";
+                }
+                if (DateTemp > DateTime.Now.Date)
+                {
+                    Error = Error + "The date of the order can not be set from the future; ";
+                }
+            }
+            catch
+            {
+                Error = Error + "The Order date is not of a valid date format; ";
+            }
+
+            try
+            {
+                TotalTemp = Convert.ToDecimal(OrderTotal);
+                if (TotalTemp <= 0)
+                {
+                    Error = Error + "Empty order with a total cost of 0 can not be proccessed; ";
+                }
+                if (TotalTemp > 10000000)
+                {
+                    Error = Error + "Maximum order amount that can be proccessed is 10,000,000.00; ";
+                }
+            }
+            catch
+            {
+                Error = Error + "Order Total cannot be empty; ";
+            }
+            List<string> Stuff = new List<string>();
+                
+                if (OrderProgress.Length <= 0)
+                {
+                    Error = Error + "Order progress can not be empty; ";
+                }
+                if (OrderProgress.Length > 10)
+                {
+                    Error = Error + "Order progress is limited to a word with a max of 10 character; ";
+                }
+
+            return Error;
         }
     }
 }

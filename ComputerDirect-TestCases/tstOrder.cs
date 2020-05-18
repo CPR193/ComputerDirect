@@ -7,14 +7,20 @@ namespace ComputerDirect_TestCases
     [TestClass]
     public class tstOrder
     {
-        string OrderDate = DateTime.Now.Date.ToString();
+        string OrderDate = Convert.ToString(DateTime.Now.Date);
         string OrderTotal = "1";
+        string OrderId = "1";
+        string CustomerId = "1";
+        string StaffId = "1";
+        string OrderProgress = "Dispatched";
+
         [TestMethod]
         public void InstanceOK()
         {
             clsOrder AnOrder = new clsOrder();
             Assert.IsNotNull(AnOrder);
         }
+
 
         [TestMethod]
         public void CustomerIdPropertyOK()
@@ -23,6 +29,46 @@ namespace ComputerDirect_TestCases
             Int32 TestData = 1;
             AnOrder.CustomerId = TestData;
             Assert.AreEqual(AnOrder.CustomerId, TestData);
+        }
+
+        [TestMethod]
+        public void CustomerIdMinLessOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string CustomerId = "0";
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void CustomerIdMoreMax()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string CustomerId = Convert.ToString(int.MaxValue);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void StaffIdMinLessOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string StaffId = "0";
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void StaffIdMoreMax()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string StaffId = Convert.ToString(int.MaxValue);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
         }
 
         [TestMethod]
@@ -35,6 +81,67 @@ namespace ComputerDirect_TestCases
         }
 
         [TestMethod]
+        public void DateAddedInvalidData()
+        {
+
+                clsOrder AnOrder = new clsOrder();
+                String Error = "";
+                string DateAdded = "Not a date!";
+                Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+        }
+
+        [TestMethod]
+        public void OrderDateExtremeMin()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(-100);
+            string OrderDate = Convert.ToString(TestDate);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void OrderDateMinLessOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddDays(-1);
+            string OrderDate = Convert.ToString(TestDate);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void OrderDateMin()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            string OrderDate = Convert.ToString(TestDate);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void OrderDateMinPlusOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(1);
+            string OrderDate = Convert.ToString(TestDate);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
         public void OrderIdPropertyOK()
         {
             clsOrder AnOrder = new clsOrder();
@@ -43,14 +150,6 @@ namespace ComputerDirect_TestCases
             Assert.AreEqual(AnOrder.OrderId, TestData);
         }
 
-        [TestMethod]
-        public void OrderLinesPropertyOK()
-        {
-            clsOrder AnOrder = new clsOrder();
-            Int32 TestData = 1;
-            AnOrder.OrderLines = TestData;
-            Assert.AreEqual(AnOrder.OrderLines, TestData);
-        }
 
         [TestMethod]
         public void OrderStatusPropertyOK()
@@ -65,9 +164,29 @@ namespace ComputerDirect_TestCases
         public void OrderTotalPropertyOK()
         {
             clsOrder AnOrder = new clsOrder();
-            Decimal TestData = 1;
+            decimal TestData = 1;
             AnOrder.OrderTotal = TestData;
             Assert.AreEqual(AnOrder.OrderTotal, TestData);
+        }
+
+        [TestMethod]
+        public void OrderTotalMinLessOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string OrderTotal = "0";
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void OrderTotalMaxPlusOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string OrderTotal = "10000001";
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
         }
 
         [TestMethod]
@@ -77,6 +196,36 @@ namespace ComputerDirect_TestCases
             Int32 TestData = 1;
             AnOrder.StaffId = TestData;
             Assert.AreEqual(AnOrder.StaffId, TestData);
+        }
+
+        [TestMethod]
+        public void OrderProgressOK()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string TestData = "";
+            AnOrder.OrderProgress = TestData;
+            Assert.AreEqual(AnOrder.OrderProgress, TestData);
+        }
+
+        [TestMethod]
+        public void OrderProgressNotEmpty()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string OrderProgress = "";
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void OrderProgressOutOfBounds()
+        {
+            clsOrder AnOrder = new clsOrder();
+            string Error = "";
+            string OrderProgress = "";
+            OrderProgress = OrderProgress.PadRight(11, 'a');
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
+            Assert.AreNotEqual(Error, "");
         }
 
         [TestMethod]
@@ -112,7 +261,7 @@ namespace ComputerDirect_TestCases
             Boolean OK = true;
             Int32 OrderId = 1;
             Found = AnOrder.Find(OrderId);
-            if (AnOrder.OrderDate != Convert.ToDateTime("01/01/2020"))
+            if (AnOrder.OrderDate <= Convert.ToDateTime("01/01/2020"))
             {
                 OK = false;
             }
@@ -156,7 +305,7 @@ namespace ComputerDirect_TestCases
             Boolean OK = true;
             Int32 OrderId = 1;
             Found = AnOrder.Find(OrderId);
-            if (AnOrder.OrderTotal != 1)
+            if (AnOrder.OrderTotal <= 1)
             {
                 OK = false;
             }
@@ -183,7 +332,7 @@ namespace ComputerDirect_TestCases
         {
             clsOrder AnOrder = new clsOrder();
             String Error = "";
-            Error = AnOrder.Valid(OrderDate, OrderTotal);
+            Error = AnOrder.Valid(CustomerId, StaffId, OrderDate, OrderTotal, OrderProgress);
             Assert.AreEqual(Error, "");
         }
     }
