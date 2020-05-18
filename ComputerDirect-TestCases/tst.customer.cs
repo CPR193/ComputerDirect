@@ -35,9 +35,9 @@ namespace ComputerDirect_TestCases
 
             Int32 TestData = 1;
 
-            ACustomer.CustomerID = TestData;
+            ACustomer.CustomerId = TestData;
 
-            Assert.AreEqual(ACustomer.CustomerID, TestData);
+            Assert.AreEqual(ACustomer.CustomerId, TestData);
         }
 
 
@@ -51,6 +51,7 @@ namespace ComputerDirect_TestCases
             ACustomer.CustomerName = TestData;
 
             Assert.AreEqual(ACustomer.CustomerName, TestData);
+        }
 
 
 
@@ -67,8 +68,5 @@ namespace ComputerDirect_TestCases
         }
     }
 
-
-}
-    }
 
 }

@@ -8,6 +8,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ComputerDirect-Frontend", "ComputerDirect-Frontend\", "{A0023FE6-422C-4700-A2A2-EB6157E5DB6F}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{efeeca8d-9b27-47af-92ab-3df7833515a4}|ComputerDirect-Classes.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_51300"
 		Debug.AspNetCompiler.PhysicalPath = "ComputerDirect-Frontend\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51300\"
